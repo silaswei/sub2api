@@ -1,4 +1,5 @@
-const DEFAULT_API_BASE_URL = '/api/v1'
+const DEFAULT_API_BASE_URL = '/sub2api/api/v1'
+const LEGACY_API_BASE_URL = '/api/v1'
 const API_BASE_URL = normalizeAPIBaseURL(import.meta.env.VITE_API_BASE_URL)
 
 function normalizePath(path: string): string {
@@ -21,10 +22,10 @@ export function getAPIBaseURL(): string {
 export function buildApiUrl(path: string): string {
   const base = getAPIBaseURL().replace(/\/+$/, '')
   let suffix = normalizePath(path)
-  if (suffix === DEFAULT_API_BASE_URL) {
+  if (suffix === LEGACY_API_BASE_URL) {
     suffix = ''
-  } else if (suffix.startsWith(`${DEFAULT_API_BASE_URL}/`)) {
-    suffix = suffix.slice(DEFAULT_API_BASE_URL.length)
+  } else if (suffix.startsWith(`${LEGACY_API_BASE_URL}/`)) {
+    suffix = suffix.slice(LEGACY_API_BASE_URL.length)
   }
   return `${base}${suffix}`
 }
